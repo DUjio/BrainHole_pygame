@@ -119,10 +119,10 @@ class Player(pygame.sprite.Sprite):
             self.rect.centerx += self.speed
             print self.rect.centery
         if temper == 2:
-            self.rect.centery -= self.speed
+            self.rect.centery -= self.speed * 3
             print self.rect.centerx, self.rect.centery
         if temper == 3:
-            self.rect.centery += self.speed
+            self.rect.centery += self.speed * 3
         if 0 > self.rect.centerx or self.rect.centerx > screen.get_width():
             self.rect.centerx = -self.rect.centerx
         if 0 > self.rect.centery or self.rect.centery > screen.get_height():
