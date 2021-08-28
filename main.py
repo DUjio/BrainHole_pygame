@@ -116,13 +116,14 @@ while running:
                 # Game_Over()
                 break
         for bullet in Bullets:
-            bullet.move(button_flag)
+            bullet.move(0)  #button_flag
             screen.blit(bullet.image, bullet.rect)
             for enemy in enemies:
                 if pygame.sprite.collide_circle(bullet, enemy):
                     enemies_down.append(enemy)
                     enemies.remove(enemy)
                     Bullets.remove(bullet)
+                    bullet = None
                     Score += 1
                     break
             if bullet is not None:
