@@ -18,11 +18,20 @@ Bullets = []
 
 
 class Enemy(pygame.sprite.Sprite):
+    __png_name = ["resources/image/zm-1.png", "resources/image/zm-2.png"]
     def __init__(self, init_pos):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("resources/image/zm-2.png")
+        self.image = pygame.image.load(Enemy.__png_name[1])
         self.rect = self.image.get_rect()
-        self.rect.topleft = init_pos
+        init_pos[0] = min(
+            max((0 + (0.5 * self.rect.width)), init_pos[0]),
+            (screen.get_width() - (0.5 * self.rect.width))
+        )
+        init_pos[1] = min(
+            max((0 + (0.5 * self.rect.height)), init_pos[1]),
+            (screen.get_height() - (0.5 * self.rect.height))
+        )
+        self.rect.center = init_pos
         self.speed = 2
         self.down_index = 0
         self.walk = 0
@@ -31,9 +40,9 @@ class Enemy(pygame.sprite.Sprite):
         topleft = self.rect.topleft
         if self.walk > 40:
             self.walk = 0
-            self.image = pygame.image.load("resources/image/zm-2.png")
+            self.image = pygame.image.load(Enemy.__png_name[1])
         if self.walk == 20:
-            self.image = pygame.image.load("resources/image/zm-1.png")
+            self.image = pygame.image.load(Enemy.__png_name[0])
         self.rect = self.image.get_rect()
         self.rect.topleft = topleft
         self.walk += 1
@@ -114,19 +123,23 @@ class Player(pygame.sprite.Sprite):
         if temper == 0:
             for temp in range(1, 10):
                 self.rect.centerx -= 3
-            print self.rect.centerx, self.rect.centery
+            # print self.rect.centerx, self.rect.centery
         if temper == 1:
             self.rect.centerx += self.speed
-            print self.rect.centery
+            # print self.rect.centery
         if temper == 2:
-            self.rect.centery -= self.speed * 3
-            print self.rect.centerx, self.rect.centery
+            self.rect.centery -= self.speed * 5
+            # print self.rect.centerx, self.rect.centery
         if temper == 3:
-            self.rect.centery += self.speed * 3
-        if 0 > self.rect.centerx or self.rect.centerx > screen.get_width():
-            self.rect.centerx = -self.rect.centerx
-        if 0 > self.rect.centery or self.rect.centery > screen.get_height():
-            self.rect.centery = -self.rect.centery
+            self.rect.centery += self.speed * 5
+        self.rect.centerx = min(
+            max((0 + (0.5 * self.rect.width)), self.rect.centerx),
+            (screen.get_width() - (0.5 * self.rect.width))
+        )
+        self.rect.centery = min(
+            max((0 + (0.5 * self.rect.height)), self.rect.centery),
+            (screen.get_height() - (0.5 * self.rect.height))
+        )
 
     def shoot(self):
         bullet = Bullet(self.rect.midtop)

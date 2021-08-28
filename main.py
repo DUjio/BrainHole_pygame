@@ -62,8 +62,7 @@ while running:
                 if event.key == pygame.K_1:
                     background = pygame.image.load(start_image).convert()
                     player = Player()
-                    print screen.get_width()
-                    print screen.get_height()
+                    print screen.get_width(), screen.get_height()
                     flag = 1
             elif event.key == pygame.K_4:
                 exit()
@@ -73,13 +72,13 @@ while running:
                     player.move(1)
                     button_flag = 0
                     # flag == 1
-                    print "buttonflag" and button_flag
+#                     print "buttonflag" , button_flag
             elif event.key == pygame.K_LEFT:
                 if flag == 1:
                     player.turn(0)
                     player.move(0)
                     button_flag = 1
-                    print "buttonflag" and button_flag
+#                     print "buttonflag" , button_flag
             elif event.key == pygame.K_UP:
                 if flag == 1:
                     player.turn(3)
@@ -95,7 +94,7 @@ while running:
                 if flag == 1:
                     player.shoot()
                     button_music.play()
-                    print("shoot")
+#                     print("shoot")
     screen.blit(background, (x, y))
     if flag == 1:
         score_font = pygame.font.Font(None, 50)
